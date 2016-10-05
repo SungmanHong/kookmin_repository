@@ -1,0 +1,27 @@
+# R mysql 접속 package 
+install.packages("RMySQL")
+library(RMySQL)
+
+### mysql 연결
+# user : mysql 계정아이디
+# password : mysql 계정 비밀번호
+# dbname : mysql database 명(km_db)
+# host : mysql hosting 정보(kookmindb.czypjmusens3.ap-northeast-2.rds.amazonaws.com)
+
+mydb = dbConnect(MySQL(), user='user', password='password', dbname='database_name', host='host')
+
+### mysql db 안의 table 정보
+### 반환 내용은 database안의 table을 보여줌
+dbListTables(mydb)
+
+### table의 field 정보를 보여줌
+dbListFields(mydb, 'some_table')
+
+### table 조회
+### dbSendQuery(mysql 접속정보, "query문자열")
+rs = dbSendQuery(mydb, "select * from some_table")
+
+### 조회한 data를 변수에 담기
+### n : row 수를 의미하며, -1이면 전체건수를 가져오겠단 의미
+### 담은 결과는 data.frame 형태로 반환되기 때문에 data.frame 처럼 사용이 가능하다.
+data = fetch(rs, n=-1)
