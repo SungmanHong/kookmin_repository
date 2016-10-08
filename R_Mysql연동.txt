@@ -1,4 +1,4 @@
-# R mysql 접속 package 
+﻿# R mysql 접속 package 
 install.packages("RMySQL")
 library(RMySQL)
 
@@ -23,5 +23,5 @@ rs = dbSendQuery(mydb, "select * from some_table")
 
 ### 조회한 data를 변수에 담기
 ### n : row 수를 의미하며, -1이면 전체건수를 가져오겠단 의미
-### 담은 결과는 data.frame 형태로 반환되기 때문에 data.frame 처럼 사용이 가능하다.
+### 담은 결과는 data.frame 형태로 반환되기 때문에 data.frame 처럼 사용이 가능하다...
 data = fetch(rs, n=-1)
