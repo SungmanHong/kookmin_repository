@@ -10,6 +10,6 @@ if __name__ == '__main__':
 	# DB 연결
 	dc = MySQLConnect(host, user, password, db)
 
-	# 데이터 조회(LEASE_DATA에 SEQ_=1 인 것만) test222 이재현
+	# 데이터 조회(LEASE_DATA에 SEQ_=1 인 것만) test222 이재현ddd
 	result = dc.getRecord("*", "LEASE_DATA", "A_6 = '26형'")
 	print (pd.DataFrame(list(result)))
