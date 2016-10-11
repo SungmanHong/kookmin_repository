@@ -15,8 +15,8 @@ highage_26
 ## data 분리(train/valid/test)
 splits <- h2o.splitFrame(highage_26, c(0.6, 0.2), seed = 1234)
 train <- h2o.assign(splits[[1]], "train.hex") # 60%
-valid <- h2o.assign(splits[[1]], "valid.hex") # 60%
-test <- h2o.assign(splits[[1]], "test.hex") # 60%
+valid <- h2o.assign(splits[[2]], "valid.hex") # 60%
+test <- h2o.assign(splits[[3]], "test.hex") # 60%
 
 ## 예측하고자 하는 변수지정
 response = 'W_4' # 당첨/탈락 여부 필드
