@@ -228,6 +228,11 @@ highage_26 <- subset(full_data.priorty, W_3 == '26F' & (W_14 == 'PH' | W_14 == '
 highage_36 <- subset(full_data.priorty, W_3 == '36F' & (W_14 == 'PH' | W_14 == 'GH' | W_14 == 'NH'))
 highage_46 <- subset(full_data.priorty, W_3 == '46F' & (W_14 == 'PH' | W_14 == 'GH' | W_14 == 'NH'))
 
+## W_1, W_6, W_14 제거
+highage_26 <- highage_26[, !names(highage_26) %in% c("W_1", "W_6", "W_14")]
+highage_36 <- highage_36[, !names(highage_36) %in% c("W_1", "W_6", "W_14")]
+highage_46 <- highage_46[, !names(highage_46) %in% c("W_1", "W_6", "W_14")]
+
 write.table(highage_26, 'highage_26.csv')
 write.table(highage_36, 'highage_36.csv')
 write.table(highage_46, 'highage_46.csv')
@@ -237,18 +242,31 @@ disabled_26 <- subset(full_data.priorty, W_3 == '26F' & (W_14 == 'PD' | W_14 == 
 disabled_36 <- subset(full_data.priorty, W_3 == '36F' & (W_14 == 'PD' | W_14 == 'GD' | W_14 == 'ND'))
 disabled_46 <- subset(full_data.priorty, W_3 == '46F' & (W_14 == 'PD' | W_14 == 'GD' | W_14 == 'ND'))
 
+## W_1, W_6, W_14 제거
+disabled_26 <- disabled_26[, !names(disabled_26) %in% c("W_1", "W_6", "W_14")]
+disabled_36 <- disabled_36[, !names(disabled_36) %in% c("W_1", "W_6", "W_14")]
+disabled_46 <- disabled_46[, !names(disabled_46) %in% c("W_1", "W_6", "W_14")]
+
 write.table(disabled_26, 'disabled_26.csv')
 write.table(disabled_36, 'disabled_36.csv')
 write.table(disabled_46, 'disabled_46.csv')
 
 ## 신혼부부
 married_46 <- subset(full_data.priorty, W_3 == '46F' & (W_14 == 'PM' | W_14 == 'GM' | W_14 == 'NM'))
+
+## W_1, W_6, W_14 제거
+married_46 <- married_46[, !names(married_46) %in% c("W_1", "W_6", "W_14")]
 write.table(married_46, 'married_46.csv')
 
 ## 일반공급
 general_26 <- full_data.general %>% filter(W_3 == "26F" & W_14 %in% c('ND', 'GD', 'GG', 'GH', 'NG', 'NH', 'GC', 'GN', 'NHAN', 'GHAN', 'NN', 'NM', 'NBOOK', 'GBOOK', 'NGEUN', 'GM', 'GGEUN', 'NC'))
 general_36 <- full_data.general %>% filter(W_3 == "36F" & W_14 %in% c('ND', 'GD', 'GG', 'GH', 'NG', 'NH', 'GC', 'GN', 'NHAN', 'GHAN', 'NN', 'NM', 'NBOOK', 'GBOOK', 'NGEUN', 'GM', 'GGEUN', 'NC'))
 general_46 <- full_data.general %>% filter(W_3 == "46F" & W_14 %in% c('ND', 'GD', 'GG', 'GH', 'NG', 'NH', 'GC', 'GN', 'NHAN', 'GHAN', 'NN', 'NM', 'NBOOK', 'GBOOK', 'NGEUN', 'GM', 'GGEUN', 'NC'))
+
+## W_1, W_6, W_14 제거
+general_26 <- general_26[, !names(general_26) %in% c("W_1", "W_6", "W_14")]
+general_36 <- general_36[, !names(general_36) %in% c("W_1", "W_6", "W_14")]
+general_46 <- general_46[, !names(general_46) %in% c("W_1", "W_6", "W_14")]
 
 write.table(general_26, 'general_26.csv')
 write.table(general_26, 'general_36.csv')

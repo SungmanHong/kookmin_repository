@@ -1,4 +1,4 @@
-﻿# rm(list = ls())
+# rm(list = ls())
 # install.packages("h2o")
 library(h2o)
 
@@ -44,7 +44,7 @@ pred <- h2o.predict(m1, test)
 pred
 ## 정확도
 test$Accuracy <- pred$predict == test$W_4
-## 평균 정확도 : 15%
+## 에러 : 34%
 1 - mean(test$Accuracy)
 #################################################################################################################################
 
