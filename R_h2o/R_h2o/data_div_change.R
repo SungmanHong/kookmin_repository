@@ -269,5 +269,5 @@ general_36 <- general_36[, !names(general_36) %in% c("W_1", "W_6", "W_14")]
 general_46 <- general_46[, !names(general_46) %in% c("W_1", "W_6", "W_14")]
 
 write.table(general_26, 'general_26.csv')
-write.table(general_26, 'general_36.csv')
-write.table(general_26, 'general_46.csv')
+write.table(general_36, 'general_36.csv')
+write.table(general_46, 'general_46.csv')
