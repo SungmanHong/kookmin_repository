@@ -2,7 +2,7 @@
 # install.packages("dplyr")
 library(stringr)
 library(dplyr)
-full_data <- read.csv('full_data1011v1.csv', encoding = 'EUC-KR')
+full_data <- read.csv('full_data1011v2.csv', encoding = 'EUC-KR')
 head(full_data)
 
 ## 우선/일반 나누기 
