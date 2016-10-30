@@ -11,7 +11,7 @@ with open('api.json', encoding="UTF-8") as f :
 client_id = api_key['client_id'] # client id(NAVER Application id)
 client_secret = api_key['client_secret'] # client secret(NAVER Secret key)
 
-url = 'https://openapi.naver.com/v1/search/blog.xml?'
+url = 'https://openapi.naver.com/v1/search/cafearticle.xml?'
 
 params = urllib.parse.urlencode({'query': '남양주별내A11-1',	## 검색어
 									'display' : 100,				## 보여지는 개수
