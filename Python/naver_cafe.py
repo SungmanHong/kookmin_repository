@@ -37,7 +37,7 @@ chrome.implicitly_wait(50)
 chrome.get(cafe_url)
 
 search_input = chrome.find_element_by_xpath('.//input[@id="topLayerQueryInput"]')
-search_text = '별내A9'
+search_text = '별내A22'
 search_input.send_keys(search_text) # 검색어
 encode_str = quote(search_text.encode('euckr'))
 
@@ -58,8 +58,8 @@ page_navigation = soup_page.find('table', class_='Nnavi')
 page_list= page_navigation.find_all('a')
 date = soup_page.find_all('td', class_='view-count m-tcol-c')
 
-start_date = datetime.strptime('20140421','%Y%m%d').date()
-end_date = datetime.strptime('20140903','%Y%m%d').date()
+start_date = datetime.strptime('20160330','%Y%m%d').date()
+end_date = datetime.strptime('20160719','%Y%m%d').date()
 
 with open(search_text+"_검색결과url.csv", 'w', encoding='euckr') as f:
     writer = csv.writer(f)
