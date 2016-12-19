@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+	<div class="panel panel-default">
+		<div class="panel-heading" style="text-align:center;">
+			<strong>예측 서비스</strong>
+		</div>
+		<div class="panel-body">
+			{% csrf_token %}
+			{% crispy form %}
+			<!-- <span id="lblIPAddress"></span> -->
+			<div id="popup_modal" class="modal" style="display: none">
+			    <div class="center">
+			        <img alt="" src="http://giphy.com/gifs/loading-FmcNeI0PnsAKs"/>
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function change_married() {
+		var married_yn = document.getElementById("id_Q_15_0").value;
+    	if (married_yn  == 'Y') {
+    		document.getElementById("id_Q_15").disabled = false;
+    		document.getElementById("id_Q_16").disabled = false;
+    		document.getElementById("id_Q_17").disabled = false;
+    	}else {
+    		document.getElementById("id_Q_15").value = "";
+    		document.getElementById("id_Q_16").value = "";
+    		document.getElementById("id_Q_17").value = "";
+
+    		document.getElementById("id_Q_15").disabled = true;
+    		document.getElementById("id_Q_16").disabled = true;
+    		document.getElementById("id_Q_17").disabled = true;
+    	}
+	}
+	// $( document ).ready(function() {
+	// });
+	$(window).bind("pageshow", function() {
+    	var form = $('#input_data_form');
+    	// let the browser natively reset defaults
+    	form[0].reset();
+	});
+</script>
+<script type="text/javascript">
+</script>
+{% endblock %}

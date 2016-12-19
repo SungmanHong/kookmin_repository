@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	{% block extrajs %}
+	<script type="text/javascript">
+		$(function () {
+			// get data
+			var x_data = $.parseJSON('{{x_data|safe}}');
+			var series_data = $.parseJSON('{{series_data|safe}}');
+			var model_dict = {'disabled_26_gbm' : '장애인 13평', 'disabled_36_rf' : '장애인 17평', 'disabled_46_rf' : '장애인 21평', 'highage_26_rf': '고령자 13평', 'highage_36_rf' : '고령자 17평', 'highage_46_gbm' : '고령자 21평', 'married_46_rf' : '신혼부부 21평', 'general_26_rf' : '일반 13평', 'general_36_rf' : '일반 17평', 'general_46_rf':'일반 21평'  };
+
+			console.log(x_data);
+			console.log(series_data);
+			// categories array push
+			var categories = new Array(),
+				xdata_len = x_data.length,
+				i = 0;
+
+			if (xdata_len >= 3) {	// 길이가 3 이상인 경우
+				for (i; i < 3; i++) {
+					// alert(typeof model_dict[x_data[i]]);
+					categories.push(model_dict[x_data[i]]);
+				}
+			}else {		// 길이가 3 미만
+				for (i; i < xdata_len; i++) {
+					categories.push(model_dict[x_data[i]]);
+				}
+			}
+
+			if (x_data[0] == "no_model") {
+				document.getElementById('container').style.display = "none";
+				document.getElementById('notShow_div').innerHTML = "예측된 결과가 없습니다.";
+			} else {
+				var series = [],
+				series_len = series_data.name.length,
+				j= 0;
+
+				if (series_len >= 3) {	// 길이가 3 이상인 경우
+					for (j; j<3; j++) {
+						// alert(series_data[j]['data']);
+						series.push({
+							showInLegend: false,
+							name : model_dict[series_data.name[j]],
+							data : [[j, series_data.data[j]]],
+							enableMouseTracking: false
+							// color: colors[j]
+						});
+						// console.log(j);
+					}
+				} else {	//길이가 3 미만인 경우
+					for (j; j<series_len; j++) {
+						// alert(series_data[j]['data']);
+						series.push({
+							showInLegend: false,
+							name : model_dict[series_data.name[j]],
+							data : [[j, series_data.data[j]]],
+							enableMouseTracking: false
+							// color: colors[j]
+						});
+						// console.log(j);
+					}
+				}
+				var myChart = Highcharts.chart('container', {
+			        chart: {	//chart type
+			            type: 'bar'
+			        },
+
+			        plotOptions: { series: {
+	                dataLabels: {
+	                    enabled: true,
+	                    align: 'right',
+	                    color: '#FFFFFF',
+	                    x: -10,
+	                    formatter: function() {
+	                    	return this.x+': '+this.y+" %";
+	                    }
+	                },
+	                tooltip: { enabled: false },
+	                pointPadding: 0.1,
+	                groupPadding: 0
+	            	}},
+			        title: {	// chart title
+			            text: '{{name}}'+'님 '+'{{block_name}}'+'단지 예측 결과'
+			        },
+			        xAxis: {	// x_axis value
+			            categories: categories,
+			            labels: {
+			            	enable: true,
+			            	style: {
+	                			width: 200
+	            			}
+			            },
+			            type: 'category'
+
+			        },
+			        yAxis: {	// y_axis value
+			        	min: 0,
+			        	max: 100,
+			            title: {
+			                text: '예측율(%)'
+			            },
+			            labels: {
+		         		  enabled: true
+		       			},
+			        },
+			        series: series		//legend value
+			    });
+			    document.getElementById('notShow_div').style.display = "none";
+		    // alert(JSON.stringify(series));
+			}
+
+		});
+
+	</script>
+	{% endblock %}
+
+<div style="height: 350px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background-color: transparent;">
+
+	<div class="panel panel-default">
+		<div class="panel-heading" style="text-align:center;">
+			<strong>예측 서비스</strong>
+		</div>
+		<div class="panel-body">
+			<div id = 'container'  style="position: relative; overflow: hidden; width: 100%; height: 350px; cursor: default;">
+			</div>
+			<div id="notShow_div" class="alert alert-danger">
+			</div>
+		</div>
+	</div>
+
+
+
+</div>
+{% endblock %}
