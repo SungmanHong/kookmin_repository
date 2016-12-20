@@ -23,7 +23,7 @@ tmp = as.h2o(tmp)
 
 idx <- 1
 for (model in model_lst) {
-	rf <- h2o.loadModel(paste0(model,""))
+	rf <- h2o.loadModel(paste0("C:/apps/foo/kmapps/R/",model,""))
 	## result data.frame
 	res_df <- as.data.frame(h2o.predict(rf,tmp))
 	## save list
