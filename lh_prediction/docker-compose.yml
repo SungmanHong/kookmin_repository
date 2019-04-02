@@ -1,0 +1,60 @@
+version: '2' # docker compose 버전 정의
+volumes:
+  agent_python_gunicorn: {}
+  ws_python_daphne: {}
+
+services: # 서비스 정의
+  web:  # 서비스명
+    restart: always
+    build:  # 빌드 지정
+      context: .  # Dockerfile이 있는 디렉토리의 경로
+      dockerfile: Dockerfile  # Dockerfile명
+    volumes:  # 컨테이너에 볼륨을 마운트
+      - .:/lh_prediction
+      - agent_python_gunicorn:/run/gunicorn
+    env_file:
+      - ./django.env
+    expose:
+      - "5959"
+      - "8000"
+      - "5432"
+    networks:
+      - nginx_network
+#    links:
+#      - logstash
+    tty: true
+#    depends_on:
+#      - db
+#  db:
+#    restart: always
+#    build:
+#      context: ./config/postgresql
+#      dockerfile: Dockerfile
+#    container_name: postgresql_kookmin01
+#    ports:
+#      - 5432:5432
+#    env_file:
+#      - ./config/postgresql/db.env
+#    networks:
+#      - db_network
+  nginx:
+    restart: always
+#    image: nginx:latest # 도커 이미지(d2hub 최신버전)
+    build: ./config/nginx/  # Dockerfile이 있는 디렉토리의 경로
+    ports:
+      - '80:80'
+    volumes:
+      - agent_python_gunicorn:/run/gunicorn
+#      - ./config/nginx:/etc/nginx/conf.d
+    depends_on: # 서비스 의존관계 정의. 컨테이너의 시작 순서만 제어
+      - web # nginx 컨테이너를 시작하기 전에 web 컨테이너를 시작
+    networks:
+#      - elastic
+      - nginx_network
+    links:
+      - web
+#      - logstash
+
+networks:
+  nginx_network:
+    driver: bridge

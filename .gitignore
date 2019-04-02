@@ -241,3 +241,7 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 .Rproj.user
+
+.Rhistory
+.idea/
+lh_prediction/django.env
