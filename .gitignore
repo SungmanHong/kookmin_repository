@@ -245,3 +245,6 @@ ModelManifest.xml
 .Rhistory
 .idea/
 lh_prediction/django.env
+lh_prediction/R/model_lst.txt
+lh_prediction/R/x_data.json
+lh_prediction/R/series_data.json
