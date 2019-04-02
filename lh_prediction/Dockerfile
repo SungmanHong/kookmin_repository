@@ -43,7 +43,8 @@ RUN echo "deb http://cran.rstudio.com/bin/linux/debian jessie-cran3/" >> /etc/ap
 RUN apt-key adv --keyserver keys.gnupg.net --recv-keys 6212B7B7931C4BB16280BA1306F90DE5381BA480
 RUN apt-get update
 RUN apt-get install -y r-base r-base-dev --allow-unauthenticated
-RUN R -e "install.packages('dplyr', repos='https://ftp.harukasan.org/CRAN/')"
+#RUN R -e "install.packages('dplyr', repos='https://ftp.harukasan.org/CRAN/')"
+RUN apt-get install r-cran-dplyr
 RUN R -e "install.packages('rjson', repos='https://ftp.harukasan.org/CRAN/')"
 RUN R -e "install.packages('statmod', repos='https://ftp.harukasan.org/CRAN/')"
 RUN R -e "install.packages('RCurl', repos='https://ftp.harukasan.org/CRAN/')"
