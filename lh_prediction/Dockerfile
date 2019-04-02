@@ -44,7 +44,7 @@ RUN apt-key adv --keyserver keys.gnupg.net --recv-keys 6212B7B7931C4BB16280BA130
 RUN apt-get update
 RUN apt-get install -y r-base r-base-dev --allow-unauthenticated
 #RUN R -e "install.packages('dplyr', repos='https://ftp.harukasan.org/CRAN/')"
-RUN apt-get install -y r-cran-dplyr
+RUN apt-get install -y r-cran-dplyr --allow-unauthenticated
 RUN R -e "install.packages('rjson', repos='https://ftp.harukasan.org/CRAN/')"
 RUN R -e "install.packages('statmod', repos='https://ftp.harukasan.org/CRAN/')"
 RUN R -e "install.packages('RCurl', repos='https://ftp.harukasan.org/CRAN/')"
