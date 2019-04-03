@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'wonhome',
     'bootstrap3', # bootstrap3 추가
     'crispy_forms', # crispy_forms 추가
-    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -50,11 +49,63 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'lh_prediction.urls'
 
+LOGGING = {
+    'version': 1,
+    # 기존의 로깅 설정을 비활성화 할 것인가?
+    'disable_existing_loggers': False,
+
+    # 포맷터
+    # 로그 레코드는 최종적으로 텍스트로 표현됨
+    # 이 텍스트의 포맷 형식 정의
+    # 여러 포맷 정의 가능
+    'formatters': {
+        'format1': {
+            'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s',
+            'datefmt': '%d/%b/%Y %H:%M:%S'
+        },
+        'format2': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+
+    # 핸들러
+    # 로그 레코드로 무슨 작업을 할 것인지 정의
+    # 여러 핸들러 정의 가능
+    'handlers': {
+        # 로그 파일을 만들어 텍스트로 로그레코드 저장
+        # 'file': {
+        #     'level': 'DEBUG',
+        #     'class': 'logging.FileHandler',
+        #     'filename': os.path.join(BASE_DIR, 'logs/logfile'),
+        #     'formatter': 'format1',
+        # },
+        # 콘솔(터미널)에 출력
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'format1',
+        }
+    },
+
+    # 로거
+    # 로그 레코드 저장소
+    # 로거를 이름별로 정의
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+        'wonhome': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        }
+    },
+
+}
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -124,10 +175,6 @@ USE_TZ = True
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': lambda request: True,
-}
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static')
+)

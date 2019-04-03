@@ -31,14 +31,20 @@ def call_script(cmdstr, r_filename):
 
 
 def make_test_file(dic_data, filename):
-    with open(filename, 'w', encoding='utf-8') as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerow(list(dic_data.keys()))
-        row_lst = []
+    try:
+        with open(filename, 'w', encoding='utf-8') as csv_file:
+            logger.info('open')
+            writer = csv.writer(csv_file)
+            writer.writerow(list(dic_data.keys()))
+            row_lst = []
 
-        for k in dic_data.keys():
-            row_lst.append(dic_data[k])
-        writer.writerow(row_lst)
+            for k in dic_data.keys():
+                row_lst.append(dic_data[k])
+            logger.info('-------- {} ---------'.format(row_lst))
+            writer.writerow(row_lst)
+    except Exception as e:
+        logger.info(e)
+
 
 
 def make_output(model, length):
@@ -52,17 +58,19 @@ def make_output(model, length):
     sr_lst = []
 
     if os.path.exists(modellst2path):
+        logger.info('------ exist file : {} ------'.format(modellst2path))
         try:
             os.remove(modellst2path)
             with open(modellst2path, 'w', encoding='utf-8') as f:
                 f.write(','.join(map(lambda x: str(x), model)))
-                f.write('\r\n')
+                f.write('\n')
         except OSError as e:
-            logger.warning(e)
+            logger.info(e)
     else:
+        logger.info('------ not exist file : {} ------'.format(modellst2path))
         with open(modellst2path, 'w', encoding='utf-8') as f:
             f.write(','.join(map(lambda x: str(x), model)))
-            f.write('\r\n')
+            f.write('\n')
 
     success_dict = call_script(command, path2script)
 
